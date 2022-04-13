@@ -2,6 +2,10 @@
 
 Exposes EC2 instance metadata using INFORMATION_SCHEMA.
 
+## Disclaimer
+
+mysql-ec2-metadata plugin can crash your server, corrupt your data, empty your credit card or burn down your neighbors house, ... I don't take any responsibility for this !
+
 ## Description
 
 MySQL EC2 metadata plugin downloads EC2 instance metada from metada service and exposes downloaded information in INFORMATION_SCHEMA.EC2_META table:
