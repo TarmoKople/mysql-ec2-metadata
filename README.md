@@ -34,6 +34,19 @@ MySQL EC2 metadata plugin downloads EC2 instance metada from metada service and 
 +--------------------------------+-----------------------------------------------+
 17 rows in set (0.00 sec)
 ```
+EC2 metadata is only downloaded onece when the EC2_META table is first read, usually this information is not changing while instance is running. To reload the data please use ```uninstall plugin``` and ```install plugin``` or restart MySQL.
+
+## Why ? Use cases
+mysql-ec2-metadata plugin makes MySQL AWS EC2 aware. This helps to build smarter automation or tools needed for your MySQL database infrastructure.  Information exposed in the EC2_META table can be used in many different ways.
+
+#### Integrating MySQL Orchestrator and mysql-ec2-metadata plugin:
+
+This can be done in to simple steps:
+* install mysql-ec2-metadata
+* edit MySQL Orchestrator config, add:
+```"DetectDataCenterQuery": "select VALUE from information_schema.ec2_meta where metaopt='placement/availability-zone';",```
+
+![Orchestrator](https://github.com/TarmoKople/mysql-ec2-metadata/blob/main/images/orchestrator.png)
 
 ## Getting Started
 
@@ -47,7 +60,7 @@ mysql> INSTALL PLUGIN EC2_META SONAME 'ec2_meta.so';
 
 ### Executing program
 
-mysql> SELECT * FROM EC2_META;
+mysql> SELECT * FROM INFORMATION_SCHEMA.EC2_META;
 
 ### Uninstalling
 
