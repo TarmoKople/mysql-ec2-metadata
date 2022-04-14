@@ -66,9 +66,64 @@ mysql> SELECT * FROM INFORMATION_SCHEMA.EC2_META;
 
 mysql> UNINSTALL PLUGIN EC2_META;
 
-## Help
+## Building
+### Preparing the environment
+These instructions are for Ubuntu (20.04)
+Setup build environment.
+```
+apt install build-essential
+apt install pkg-config
+```
+Enable source repositories for your system. (edit /etc/apt/sources.list, uncomment lines starting with ```#deb-src``` and then run ```apt update```) 
+Install dependencies needed to build MySQL:
+```
+apt build-dep mysql-server
+```
+Download and unpack MySQL source code:
+```
+apt source mysql-server
+```
+### Compiling the Plugin
+This step is not Linux distribution specific. The same method can be used for any distro if build environment is properly set up.
+Enter to MySQL source directory
+```
+cd mysql-<version>
+```
 
-Any advise for common problems or issues.
+Download the plugin source code and store it under MySQL plugins directory. The easiest way is to use git. In MySQL source directory do:
+```
+git clone https://github.com/TarmoKople/mysql-ec2-metadata.git plugin/ec2-metadata
+```
+This downloads source code to plugins/ec2-metadata direcotry.
+* **NB!** if you need source code for MySQL 5.7 please check out **5.7** branch
+
+Create a build directory (builddir) inside MySQL source director, cd to builddir and configure source
+```
+mkdir builddir
+cd buiddir
+cmake -DDOWNLOAD_BOOST=1 -DWITH_BOOST=. ..
+```
+
+To build the plugin and MySQL type ```make``` in builddir, to build just the plugin ```make ec2_meta```
+
+Compiled plugin can be found under: builddir/plugin_output_directory/ec2_meta.so
+
+#### Installing compiled plugin
+Copy compiled plugin to MySQL plugin directory. To find out where is the plugin direcotry is located execute:
+```
+mysql> SHOW GLOBAL VARIABLES LIKE "%plugin_dir%";
++---------------+-------------------------+
+| Variable_name | Value                   |
++---------------+-------------------------+
+| plugin_dir    | /usr/lib/mysql/plugin/  |
++---------------+-------------------------+
+1 row in set (0.01 sec)
+```
+
+For Ubuntu / Debian it is by default /usr/lib/mysql/plugin
+```
+cp plugin_output_directory/ec2_meta.so /usr/lib/mysql/plugin/
+```
 
 ## Author
 
