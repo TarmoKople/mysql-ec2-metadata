@@ -4,7 +4,7 @@ Exposes EC2 instance metadata using INFORMATION_SCHEMA.
 
 ## Disclaimer
 
-mysql-ec2-metadata plugin can crash your server, corrupt your data, empty your credit card or burn down your neighbors house, ... I don't take any responsibility for this !
+mysql-ec2-metadata plugin can crash your server, corrupt your data, empty your credit card or burn down your neighbor's house, ... I don't take any responsibility for this !
 
 ## Description
 
@@ -34,14 +34,14 @@ MySQL EC2 metadata plugin downloads EC2 instance metadata from metadata service 
 +--------------------------------+-----------------------------------------------+
 17 rows in set (0.00 sec)
 ```
-EC2 metadata is only downloaded once when the EC2_META table is first read, usually this information is not changing while the instance is running. To reload the data please use ```uninstall plugin``` and ```install plugin``` command or restart MySQL.
+EC2 metadata is only downloaded once when the EC2_META table is first read, usually this information does not change while the instance is running. To reload the data please use ```uninstall plugin``` and ```install plugin``` command or restart MySQL.
 
 ## Why ? Use cases
-mysql-ec2-metadata plugin makes MySQL AWS EC2 aware. This helps to build smarter automation or tools needed for your MySQL database infrastructure.  Information exposed in the EC2_META table can be used in many different ways.
+mysql-ec2-metadata plugin makes MySQL AWS EC2 aware. This helps to build smarter automation or tools needed for your MySQL database infrastructure.  The information exposed in the EC2_META table can be used in many different ways.
 
 #### Integrating MySQL Orchestrator and mysql-ec2-metadata plugin:
 
-This can be done in to simple steps:
+This can be done in two simple steps:
 * install mysql-ec2-metadata
 * edit MySQL Orchestrator config, add:
 ```"DetectDataCenterQuery": "select VALUE from information_schema.ec2_meta where metaopt='placement/availability-zone';",```
@@ -84,7 +84,7 @@ Download and unpack MySQL source code:
 apt source mysql-server
 ```
 ### Compiling the Plugin
-This step is not Linux distribution specific. The same method can be used for any Linux distribution if build environment is properly set up.
+This step is not Linux distribution specific. The same method can be used for any Linux distribution if the build environment is properly set up.
 Enter to MySQL source directory
 ```
 cd mysql-<version>
@@ -94,10 +94,10 @@ Download the plugin source code and store it under MySQL plugins directory. The 
 ```
 git clone https://github.com/TarmoKople/mysql-ec2-metadata.git plugin/ec2-metadata
 ```
-This downloads source code to plugins/ec2-metadata direcotry.
+This downloads source code to plugins/ec2-metadata directory.
 * **NB!** if you need source code for MySQL 5.7 please check out **5.7** branch
 
-Create a build directory (builddir) inside MySQL source director, cd to builddir and configure source
+Create a build directory (builddir) inside MySQL source directory, cd to builddir and configure the source
 ```
 mkdir builddir
 cd builddir
