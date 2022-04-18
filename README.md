@@ -8,7 +8,7 @@ mysql-ec2-metadata plugin can crash your server, corrupt your data, empty your c
 
 ## Description
 
-MySQL EC2 metadata plugin downloads EC2 instance metada from metada service and exposes downloaded information in INFORMATION_SCHEMA.EC2_META table:
+MySQL EC2 metadata plugin downloads EC2 instance metadata from metadata service and exposes downloaded information in INFORMATION_SCHEMA.EC2_META table:
 
 ```mysql> select * from EC2_META;
 +--------------------------------+-----------------------------------------------+
@@ -34,7 +34,7 @@ MySQL EC2 metadata plugin downloads EC2 instance metada from metada service and 
 +--------------------------------+-----------------------------------------------+
 17 rows in set (0.00 sec)
 ```
-EC2 metadata is only downloaded onece when the EC2_META table is first read, usually this information is not changing while instance is running. To reload the data please use ```uninstall plugin``` and ```install plugin``` or restart MySQL.
+EC2 metadata is only downloaded once when the EC2_META table is first read, usually this information is not changing while the instance is running. To reload the data please use ```uninstall plugin``` and ```install plugin``` command or restart MySQL.
 
 ## Why ? Use cases
 mysql-ec2-metadata plugin makes MySQL AWS EC2 aware. This helps to build smarter automation or tools needed for your MySQL database infrastructure.  Information exposed in the EC2_META table can be used in many different ways.
@@ -84,7 +84,7 @@ Download and unpack MySQL source code:
 apt source mysql-server
 ```
 ### Compiling the Plugin
-This step is not Linux distribution specific. The same method can be used for any distro if build environment is properly set up.
+This step is not Linux distribution specific. The same method can be used for any Linux distribution if build environment is properly set up.
 Enter to MySQL source directory
 ```
 cd mysql-<version>
@@ -100,7 +100,7 @@ This downloads source code to plugins/ec2-metadata direcotry.
 Create a build directory (builddir) inside MySQL source director, cd to builddir and configure source
 ```
 mkdir builddir
-cd buiddir
+cd builddir
 cmake -DDOWNLOAD_BOOST=1 -DWITH_BOOST=. ..
 ```
 
@@ -109,7 +109,7 @@ To build the plugin and MySQL type ```make``` in builddir, to build just the plu
 Compiled plugin can be found under: builddir/plugin_output_directory/ec2_meta.so
 
 #### Installing compiled plugin
-Copy compiled plugin to MySQL plugin directory. To find out where is the plugin direcotry is located execute:
+Copy compiled plugin to MySQL plugin directory. To find out where is the plugin directory is located execute:
 ```
 mysql> SHOW GLOBAL VARIABLES LIKE "%plugin_dir%";
 +---------------+-------------------------+
